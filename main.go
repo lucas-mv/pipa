@@ -18,7 +18,9 @@ func main() {
 }
 
 func run(w http.ResponseWriter, r *http.Request) {
-	trends := getTrends()
+	address := r.URL.Query().Get("address")
+
+	trends := getTrends(address)
 
 	io.WriteString(w, "Welcome to pipa! 🐶\nI'll be your guide🦮 to twitter🐦! Here are your most relevant trends...")
 	io.WriteString(w, "\n---------------------------------------------------------------------------")
@@ -47,7 +49,7 @@ func printTrendingTopic(w http.ResponseWriter, topic external.TrendingTopic) {
 	io.WriteString(w, "\tPromoted content: "+strconv.FormatBool(topic.PromotedContent != "")+"\n")
 }
 
-func getTrends() []namedTrends {
+func getTrends(address string) []namedTrends {
 	client := &http.Client{}
 	settings := utils.GetSettings()
 	twitterAuthentication := external.GetAccessToken(client, settings.TwitterBasicKey)
@@ -57,7 +59,7 @@ func getTrends() []namedTrends {
 		globalTrends <- namedTrends{3, "🛰️  Global", external.GetTrendingTopics(client, 1, twitterAuthentication.AccessToken)}
 	}()
 
-	localRegionalTrends := getLocalAndRegionalTrends(client, settings, twitterAuthentication.AccessToken)
+	localRegionalTrends := getLocalAndRegionalTrends(client, settings, twitterAuthentication.AccessToken, address)
 
 	var trends []namedTrends
 	trends = append(trends, localRegionalTrends...)
@@ -74,8 +76,8 @@ func orderNamedTrends(trends []namedTrends) {
 	})
 }
 
-func getLocalAndRegionalTrends(client *http.Client, settings utils.PipaSettings, accessToken string) []namedTrends {
-	lat, long := external.GetLatLong(settings.Address, settings.BingAPIKey)
+func getLocalAndRegionalTrends(client *http.Client, settings utils.PipaSettings, accessToken, address string) []namedTrends {
+	lat, long := external.GetLatLong(address, settings.BingAPIKey)
 
 	WOEID, ParentWOEID := external.GetWOEID(client, lat, long, accessToken)
 
