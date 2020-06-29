@@ -1,7 +1,7 @@
 # pipa
-Pipa is a simple go application that can be run by the command line to fetch the most relevant twitter trending topics based on your address.
+Pipa is a simple [go](https://golang.org/) application that can be run by the command line to fetch the most relevant twitter trending topics based on your address.
 
-As of right now you need to fill the settings on `settings.json` providing a twitter API key, a Bing Maps API key and your address (really simple stuff, as if you were to look up your house on Google or Bing maps).
+As of right now you need to fill the settings on `settings.json` providing a [Twitter Developer App ID](https://developer.twitter.com/en/docs/basics/getting-started) and get a [Basic Auth Base64 key](https://developer.twitter.com/en/docs/basics/authentication/basic-auth), a [Bing Maps API key](https://www.bingmapsportal.com/) and your address (really simple stuff, as if you were to look up your house on Google or Bing maps).
 
 ## Build
 
