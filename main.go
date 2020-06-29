@@ -1,8 +1,9 @@
 package main
 
 import (
-	"fmt"
+	"io"
 	"net/http"
+	"os"
 	"sort"
 	"strconv"
 
@@ -11,38 +12,39 @@ import (
 )
 
 func main() {
-	fmt.Println("Welcome to pipa! 🐶")
-	fmt.Println("I'll be your guide🦮 to twitter🐦! Let me fetch your most relevant trends...")
+	port := os.Getenv("PORT")
+	http.HandleFunc("/", run)
+	http.ListenAndServe(":"+port, nil)
+}
 
+func run(w http.ResponseWriter, r *http.Request) {
 	trends := getTrends()
 
-	fmt.Println("All done, here are your top trends!")
-	fmt.Println("---------------------------------------------------------------------------")
+	io.WriteString(w, "Welcome to pipa! 🐶\nI'll be your guide🦮 to twitter🐦! Here are your most relevant trends...")
+	io.WriteString(w, "\n---------------------------------------------------------------------------")
 
 	for i := 0; i < len(trends); i++ {
-		printNamedTrends(trends[i])
+		printNamedTrends(w, trends[i])
 	}
 
-	fmt.Println("That's all for now! Come back later for more relevant trends! 🐕")
+	io.WriteString(w, "\nThat's all for now! Come back later for more relevant trends! 🐕")
 }
 
-func printNamedTrends(namedTrends namedTrends) {
-	fmt.Println(namedTrends.name)
-	fmt.Println()
+func printNamedTrends(w http.ResponseWriter, namedTrends namedTrends) {
+	io.WriteString(w, "\n"+namedTrends.name+"\n")
 	for i := 0; i < 5; i++ {
-		fmt.Println("\t#" + strconv.Itoa(i+1))
-		printTrendingTopic(namedTrends.trends[i])
-		fmt.Println()
+		io.WriteString(w, "\t#"+strconv.Itoa(i+1)+"\n")
+		printTrendingTopic(w, namedTrends.trends[i])
+		io.WriteString(w, "\n")
 	}
-	fmt.Println()
-	fmt.Println("---------------------------------------------------------------------------")
+	io.WriteString(w, "\n---------------------------------------------------------------------------")
 }
 
-func printTrendingTopic(topic external.TrendingTopic) {
-	fmt.Println("\tName: " + topic.Name)
-	fmt.Println("\tURL: " + topic.URL)
-	fmt.Println("\tTweet Volume: " + strconv.FormatInt(topic.TweetVolume, 10))
-	fmt.Println("\tPromoted content: " + strconv.FormatBool(topic.PromotedContent != ""))
+func printTrendingTopic(w http.ResponseWriter, topic external.TrendingTopic) {
+	io.WriteString(w, "\tName: "+topic.Name+"\n")
+	io.WriteString(w, "\tURL: "+topic.URL+"\n")
+	io.WriteString(w, "\tTweet Volume: "+strconv.FormatInt(topic.TweetVolume, 10)+"\n")
+	io.WriteString(w, "\tPromoted content: "+strconv.FormatBool(topic.PromotedContent != "")+"\n")
 }
 
 func getTrends() []namedTrends {
