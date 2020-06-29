@@ -20,6 +20,10 @@ func main() {
 func run(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
 	address := query.Get("address")
+	if address == "" {
+		io.WriteString(w, "You need to provide the \"address\" query string parameter!")
+		return
+	}
 
 	trends := getTrends(address)
 
