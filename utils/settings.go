@@ -1,31 +1,19 @@
 package utils
 
 import (
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"log"
+	"os"
 )
 
 //PipaSettings structure of the project settings settings.json file
 type PipaSettings struct {
-	BingAPIKey      string `json:"bing_api_key"`
-	TwitterBasicKey string `json:"twitter_basic_key"`
-	Address         string `json:"address"`
+	BingAPIKey      string
+	TwitterBasicKey string
 }
 
 //GetSettings returns the settings configured in settings.json
 func GetSettings() PipaSettings {
-	data, err := ioutil.ReadFile("./settings.json")
-	if err != nil {
-		fmt.Print(err)
+	return PipaSettings{
+		os.Getenv("bing_api_key"),
+		os.Getenv("twitter_basic_key"),
 	}
-
-	var settings PipaSettings
-	err = json.Unmarshal(data, &settings)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return settings
 }
