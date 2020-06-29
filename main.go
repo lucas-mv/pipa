@@ -34,7 +34,7 @@ func run(w http.ResponseWriter, r *http.Request) {
 		printNamedTrends(w, trends[i])
 	}
 
-	io.WriteString(w, "\nThat's all for now! Come back later for more relevant trends! 🐕")
+	io.WriteString(w, "\nThat's all for now! Come back later for more relevant trends! 🐕\n")
 }
 
 func printNamedTrends(w http.ResponseWriter, namedTrends namedTrends) {
