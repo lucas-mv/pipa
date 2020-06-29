@@ -70,12 +70,6 @@ func orderNamedTrends(trends []namedTrends) {
 	sort.Slice(trends, func(i, j int) bool {
 		return trends[i].relevance < trends[j].relevance
 	})
-
-	for k := 0; k < len(trends); k++ {
-		sort.Slice(trends[k].trends, func(i, j int) bool {
-			return trends[k].trends[i].TweetVolume > trends[k].trends[j].TweetVolume
-		})
-	}
 }
 
 func getLocationTrends(client *http.Client, settings utils.PipaSettings, accessToken string) []namedTrends {
