@@ -14,7 +14,7 @@ import (
 )
 
 //GetWOEID returns the WOEID of the nearest location with avaliable Trending Topics
-func GetWOEID(client *http.Client, lat, long float64, accessToken string) int {
+func GetWOEID(client *http.Client, lat, long float64, accessToken string) (WOEID, ParentWOEID int) {
 	trendsURL := "https://api.twitter.com/1.1/trends/closest.json"
 	req, err := http.NewRequest("GET", trendsURL, nil)
 	if err != nil {
@@ -46,7 +46,7 @@ func GetWOEID(client *http.Client, lat, long float64, accessToken string) int {
 		log.Fatal(err)
 	}
 
-	return twitterPlaces[0].WOEID
+	return twitterPlaces[0].WOEID, twitterPlaces[0].ParentWOEID
 }
 
 //GetTrendingTopics returns the trending topics for the given location WOEID
@@ -138,6 +138,7 @@ type TrendingTopic struct {
 }
 
 type twitterPlace struct {
-	Name  string `json:"name"`
-	WOEID int    `json:"woeid"`
+	Name        string `json:"name"`
+	WOEID       int    `json:"woeid"`
+	ParentWOEID int    `json:"parentid"`
 }
