@@ -55,7 +55,7 @@ func getTrends() []namedTrends {
 		globalTrends <- namedTrends{3, "🛰️  Global", external.GetTrendingTopics(client, 1, twitterAuthentication.AccessToken)}
 	}()
 
-	localRegionalTrends := getLocationTrends(client, settings, twitterAuthentication.AccessToken)
+	localRegionalTrends := getLocalAndRegionalTrends(client, settings, twitterAuthentication.AccessToken)
 
 	var trends []namedTrends
 	trends = append(trends, localRegionalTrends...)
@@ -72,7 +72,7 @@ func orderNamedTrends(trends []namedTrends) {
 	})
 }
 
-func getLocationTrends(client *http.Client, settings utils.PipaSettings, accessToken string) []namedTrends {
+func getLocalAndRegionalTrends(client *http.Client, settings utils.PipaSettings, accessToken string) []namedTrends {
 	lat, long := external.GetLatLong(settings.Address, settings.BingAPIKey)
 
 	WOEID, ParentWOEID := external.GetWOEID(client, lat, long, accessToken)
