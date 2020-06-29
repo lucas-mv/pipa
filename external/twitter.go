@@ -9,6 +9,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/lucas-mv/pipa/utils"
 )
 
 //GetWOEID returns the WOEID of the nearest location with avaliable Trending Topics
@@ -20,8 +22,8 @@ func GetWOEID(client *http.Client, lat, long float64, accessToken string) int {
 	}
 
 	query := url.Values{
-		"lat":  {FloatToString(lat)},
-		"long": {FloatToString(long)},
+		"lat":  {utils.FloatToString(lat)},
+		"long": {utils.FloatToString(long)},
 	}
 	req.URL.RawQuery = query.Encode()
 
@@ -108,7 +110,7 @@ func GetAccessToken(client *http.Client, twiterBasicKey string) TwitterAuthentic
 		log.Fatal(err)
 	}
 
-	var twitterAuthentication twitterAuthentication
+	var twitterAuthentication TwitterAuthentication
 	json.Unmarshal(body, &twitterAuthentication)
 
 	return twitterAuthentication
