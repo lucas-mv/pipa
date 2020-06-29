@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -19,9 +18,8 @@ func main() {
 }
 
 func run(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("GET params were:", r.URL.Query())
-
-	address := r.URL.Query().Get("address")
+	query := r.URL.Query()
+	address := query.Get("address")
 
 	trends := getTrends(address)
 
