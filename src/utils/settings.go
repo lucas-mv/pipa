@@ -7,19 +7,21 @@ import (
 	"log"
 )
 
-type pipaSettings struct {
+//PipaSettings structure of the project settings settings.json file
+type PipaSettings struct {
 	BingAPIKey      string `json:"bing_api_key"`
 	TwitterBasicKey string `json:"twitter_basic_key"`
 	Address         string `json:"address"`
 }
 
-func GetSettings() pipaSettings {
+//GetSettings returns the settings configured in settings.json
+func GetSettings() PipaSettings {
 	data, err := ioutil.ReadFile("./settings.json")
 	if err != nil {
 		fmt.Print(err)
 	}
 
-	var settings pipaSettings
+	var settings PipaSettings
 	err = json.Unmarshal(data, &settings)
 	if err != nil {
 		log.Fatal(err)

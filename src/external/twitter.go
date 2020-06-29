@@ -11,6 +11,7 @@ import (
 	"time"
 )
 
+//GetWOEID returns the WOEID of the nearest location with avaliable Trending Topics
 func GetWOEID(client *http.Client, lat, long float64, accessToken string) int {
 	trendsURL := "https://api.twitter.com/1.1/trends/closest.json"
 	req, err := http.NewRequest("GET", trendsURL, nil)
@@ -46,7 +47,8 @@ func GetWOEID(client *http.Client, lat, long float64, accessToken string) int {
 	return twitterPlaces[0].WOEID
 }
 
-func GetTrendingTopics(client *http.Client, location int, accessToken string) []trendingTopic {
+//GetTrendingTopics returns the trending topics for the given location WOEID
+func GetTrendingTopics(client *http.Client, location int, accessToken string) []TrendingTopic {
 	trendsURL := "https://api.twitter.com/1.1/trends/place.json"
 	req, err := http.NewRequest("GET", trendsURL, nil)
 	if err != nil {
@@ -80,7 +82,8 @@ func GetTrendingTopics(client *http.Client, location int, accessToken string) []
 	return trendLocations[0].Trends
 }
 
-func GetAccessToken(client *http.Client, twiterBasicKey string) twitterAuthentication {
+//GetAccessToken returns the access token for twitter API
+func GetAccessToken(client *http.Client, twiterBasicKey string) TwitterAuthentication {
 	formData := url.Values{}
 	formData.Set("grant_type", "client_credentials")
 
@@ -111,19 +114,21 @@ func GetAccessToken(client *http.Client, twiterBasicKey string) twitterAuthentic
 	return twitterAuthentication
 }
 
-type twitterAuthentication struct {
+//TwitterAuthentication response structure of the twitter authentication API
+type TwitterAuthentication struct {
 	TokenType   string `json:"token_type"`
 	AccessToken string `json:"access_token"`
 }
 
 type trendLocation struct {
-	Trends    []trendingTopic `json:"trends"`
+	Trends    []TrendingTopic `json:"trends"`
 	AsOf      time.Time       `json:"as_of"`
 	CreatedOn time.Time       `json:"created_on"`
 	Locations []twitterPlace  `json:"locations"`
 }
 
-type trendingTopic struct {
+//TrendingTopic structure of the twitter trending topic
+type TrendingTopic struct {
 	Name            string `json:"name"`
 	URL             string `json:"url"`
 	PromotedContent string `json:"promoted_content"`

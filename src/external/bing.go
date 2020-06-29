@@ -29,6 +29,7 @@ type geoPoint struct {
 	Coordinates []float64 `json:"coordinates"`
 }
 
+//GetLatLong Returns latitude and longitude of the address parameters according to Bing Maps API
 func GetLatLong(address, bingAPIKey string) (lat, long float64) {
 	query := url.Values{
 		"q":   {address},
