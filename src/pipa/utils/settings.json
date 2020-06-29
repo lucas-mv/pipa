@@ -1,0 +1,6 @@
+
+{
+    "bing_api_key": "<BING API KEY>",
+    "twitter_basic_key": "<TWITTER BASE64 BASIC AUTH KEY>",
+    "address": "<YOUR ADDRESS>"
+}
