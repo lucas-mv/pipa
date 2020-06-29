@@ -3,6 +3,116 @@ Pipa is a simple [go](https://golang.org/) web application to fetch the most rel
 
 As of right now you can access it [here](https://pipa-tts.herokuapp.com/), you'll need to put your address on the query string (really simple stuff, as if you were to look up your house on Google or Bing maps).
 
+## Example
+
+If you access https://pipa-tts.herokuapp.com/?address=rua%20roquete%20mendon%C3%A7a,%2064,%20belo%20horizonte the result will be pretty similar to this:
+
+```
+Welcome to pipa! 🐶
+I'll be your guide🦮 to twitter🐦! Here are your most relevant trends...
+---------------------------------------------------------------------------
+🛵  Local
+	#1
+	Name: #AtleticanoSegueAtleticano
+	URL: http://twitter.com/search?q=%23AtleticanoSegueAtleticano
+	Tweet Volume: 18685
+	Promoted content: false
+
+	#2
+	Name: #GoBolsonaroMundial
+	URL: http://twitter.com/search?q=%23GoBolsonaroMundial
+	Tweet Volume: 724097
+	Promoted content: false
+
+	#3
+	Name: Maria
+	URL: http://twitter.com/search?q=Maria
+	Tweet Volume: 384124
+	Promoted content: false
+
+	#4
+	Name: Concordo
+	URL: http://twitter.com/search?q=Concordo
+	Tweet Volume: 30795
+	Promoted content: false
+
+	#5
+	Name: BRAZILIAN FANS LOVES LAUREN
+	URL: http://twitter.com/search?q=%22BRAZILIAN+FANS+LOVES+LAUREN%22
+	Tweet Volume: 51555
+	Promoted content: false
+
+
+---------------------------------------------------------------------------
+🚌  Regional
+	#1
+	Name: #AtleticanoSegueAtleticano
+	URL: http://twitter.com/search?q=%23AtleticanoSegueAtleticano
+	Tweet Volume: 18685
+	Promoted content: false
+
+	#2
+	Name: BRAZILIAN FANS LOVES LAUREN
+	URL: http://twitter.com/search?q=%22BRAZILIAN+FANS+LOVES+LAUREN%22
+	Tweet Volume: 51555
+	Promoted content: false
+
+	#3
+	Name: hisoka
+	URL: http://twitter.com/search?q=hisoka
+	Tweet Volume: 11892
+	Promoted content: false
+
+	#4
+	Name: #ForaMessi
+	URL: http://twitter.com/search?q=%23ForaMessi
+	Tweet Volume: 0
+	Promoted content: false
+
+	#5
+	Name: JAIRO VAI TOMAR NO CU
+	URL: http://twitter.com/search?q=%22JAIRO+VAI+TOMAR+NO+CU%22
+	Tweet Volume: 0
+	Promoted content: false
+
+
+---------------------------------------------------------------------------
+🛰️  Global
+	#1
+	Name: #BETAwards
+	URL: http://twitter.com/search?q=%23BETAwards
+	Tweet Volume: 476636
+	Promoted content: false
+
+	#2
+	Name: Samanta
+	URL: http://twitter.com/search?q=Samanta
+	Tweet Volume: 106939
+	Promoted content: false
+
+	#3
+	Name: Cam Newton
+	URL: http://twitter.com/search?q=%22Cam+Newton%22
+	Tweet Volume: 229834
+	Promoted content: false
+
+	#4
+	Name: Halle
+	URL: http://twitter.com/search?q=Halle
+	Tweet Volume: 70595
+	Promoted content: false
+
+	#5
+	Name: #AtleticanoSegueAtleticano
+	URL: http://twitter.com/search?q=%23AtleticanoSegueAtleticano
+	Tweet Volume: 18685
+	Promoted content: false
+
+
+---------------------------------------------------------------------------
+That's all for now! Come back later for more relevant trends! 🐕
+```
+
 ## Build
 
 `git clone` the project and run `go build` on the cloned folder.
